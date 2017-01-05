@@ -42,8 +42,7 @@ import org.demoiselle.tenant.hibernate.message.DemoiselleMultitenancyMessage;
 @Priority(Priorities.USER)
 public class TenantSelectorFilter implements ContainerRequestFilter {
 
-	@Inject
-	private Logger log;
+	private static final Logger logger = Logger.getLogger(TenantSelectorFilter.class.getName());
 
 	@Inject
 	private MultiTenancyConfiguration configuration;
@@ -98,15 +97,15 @@ public class TenantSelectorFilter implements ContainerRequestFilter {
 				// Set new URI path
 				requestContext.setRequestUri(new URI(newURi));
 			} catch (URISyntaxException e) {
-				log.log(Level.SEVERE, e.getMessage(), e);
+				logger.log(Level.SEVERE, e.getMessage(), e);
 			}
 
 			String uri = requestContext.getUriInfo().getPath();
-			log.log(Level.FINER, messages.logUriPathChanged(tenantNameUrl, uri));
+			logger.log(Level.FINER, messages.logUriPathChanged(tenantNameUrl, uri));
 
 		} else {
 			String uri = requestContext.getUriInfo().getPath();
-			log.log(Level.FINER, messages.logUriPathUnchanged(uri));
+			logger.log(Level.FINER, messages.logUriPathUnchanged(uri));
 			tenant = new Tenant(configuration.getMultiTenancyMasterDatabase());
 		}
 

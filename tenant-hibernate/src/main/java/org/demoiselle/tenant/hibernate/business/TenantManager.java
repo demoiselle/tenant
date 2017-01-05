@@ -54,8 +54,7 @@ public class TenantManager extends AbstractBusiness<Tenant, Long> {
 	@Inject
 	private MultiTenancyConfiguration configuration;
 
-	@Inject
-	private Logger logger;
+	private static final Logger logger = Logger.getLogger(TenantManager.class.getName());
 
 	/**
 	 * Get tenant name in @MultiTenantContext
