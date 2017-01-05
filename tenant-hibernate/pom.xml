@@ -5,17 +5,16 @@
 
 	<artifactId>tenant-hibernate</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
 
 	<name>Demoiselle Tenant (For Hibernate)</name>
 	<description>Demoiselle Script with Hibernate</description>
 	<url>http://demoiselle.io</url>
-	
-	 <parent>
-        <groupId>org.demoiselle.tenant</groupId>
-        <artifactId>tenant-build</artifactId>
-        <version>1.0.0-RC1-SNAPSHOT</version>
-    </parent>
+
+	<parent>
+		<groupId>org.demoiselle.tenant</groupId>
+		<artifactId>tenant-build</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
 
 	<properties>
 		<demoiselle.version>3.0.0-RC1-SNAPSHOT</demoiselle.version>
