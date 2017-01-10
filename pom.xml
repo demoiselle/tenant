@@ -6,7 +6,7 @@
     <groupId>org.demoiselle.tenant</groupId>
     <artifactId>tenant-build</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-RC1-SNAPSHOT</version>
 
     <name>Demoiselle Tenant Build</name>
     <description>Solução para desenvolvimento de soluções em multitenancy para sistemas Java EE 7 baseado na especificação CDI 1.2 (JSR 346).</description>

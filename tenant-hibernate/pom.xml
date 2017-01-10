@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.demoiselle.tenant</groupId>
 		<artifactId>tenant-build</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0-RC1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
