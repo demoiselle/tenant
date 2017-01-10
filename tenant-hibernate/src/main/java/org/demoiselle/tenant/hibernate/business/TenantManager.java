@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 
 import org.demoiselle.jee.core.api.crud.Result;
 import org.demoiselle.jee.core.message.DemoiselleMessage;
-import org.demoiselle.jee.persistence.crud.AbstractBusiness;
+import org.demoiselle.jee.crud.AbstractBusiness;
 import org.demoiselle.tenant.hibernate.configuration.MultiTenancyConfiguration;
 import org.demoiselle.tenant.hibernate.dao.TenantDAO;
 import org.demoiselle.tenant.hibernate.entity.Tenant;

@@ -9,7 +9,7 @@ package org.demoiselle.tenant.hibernate.dao;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.demoiselle.jee.persistence.crud.AbstractDAO;
+import org.demoiselle.jee.crud.AbstractDAO;
 import org.demoiselle.tenant.hibernate.context.MultiTenantContext;
 import org.demoiselle.tenant.hibernate.dao.context.EntityManagerMaster;
 import org.demoiselle.tenant.hibernate.entity.Tenant;
