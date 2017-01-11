@@ -8,7 +8,6 @@ package org.demoiselle.tenant.hibernate.filter;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +19,7 @@ import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.ext.Provider;
 
 import org.demoiselle.jee.core.api.security.SecurityContext;
@@ -88,17 +88,17 @@ public class TenantSelectorFilter implements ContainerRequestFilter {
 			}
 
 			// Change URI removing tenant name
-			String newURi = "";
+			String newURI = "";
 			for (int i = 1; i < requestContext.getUriInfo().getPathSegments().size(); i++) {
-				newURi += requestContext.getUriInfo().getPathSegments().get(i).toString() + "/";
+				newURI += requestContext.getUriInfo().getPathSegments().get(i).toString() + "/";
 			}
 
-			try {
-				// Set new URI path
-				requestContext.setRequestUri(new URI(newURi));
-			} catch (URISyntaxException e) {
-				logger.log(Level.SEVERE, e.getMessage(), e);
-			}
+			// Preserv the Query String parameters
+			UriBuilder currentURIBuilder = requestContext.getUriInfo().getRequestUriBuilder();
+			URI preservedQueryStringURI = currentURIBuilder.replacePath(newURI).build();
+
+			// Set new URI path
+			requestContext.setRequestUri(preservedQueryStringURI);
 
 			String uri = requestContext.getUriInfo().getPath();
 			logger.log(Level.FINER, messages.logUriPathChanged(tenantNameUrl, uri));
