@@ -82,9 +82,6 @@ public class TenantSelectorFilter implements ContainerRequestFilter {
 			// Verify if the user belongs to tenant
 			if (securityContext != null && securityContext.getUser() != null) {
 				String userTenant = securityContext.getUser().getParams("Tenant");
-				// TODO Verificar se o método é público ou tem restrição de
-				// acesso, pois se o usuário estiver logado em outro tenant e
-				// acessar uma funcionalidade publica de outro não tem problema
 				if (!userTenant.equals(tenant.getName())) {
 					throw new DemoiselleSecurityException(messages.errorUserNotBelongTenant(tenant.getName()));
 				}
