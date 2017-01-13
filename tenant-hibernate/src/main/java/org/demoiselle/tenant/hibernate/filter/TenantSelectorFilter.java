@@ -8,12 +8,12 @@ package org.demoiselle.tenant.hibernate.filter;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -61,7 +61,6 @@ public class TenantSelectorFilter implements ContainerRequestFilter {
 	private DemoiselleMultitenancyMessage messages;
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 
 		String tenantNameUrl = requestContext.getUriInfo().getPathSegments().get(0).toString();
@@ -73,12 +72,13 @@ public class TenantSelectorFilter implements ContainerRequestFilter {
 		Query query = entityManagerMaster.getEntityManager().createNamedQuery("Tenant.findByName");
 		query.setParameter("name", tenantNameUrl);
 
-		// TODO usar retorno do CRUD -> AGUARDANDO CRUD
-		List<Tenant> list = query.getResultList();
+		try {
+			tenant = (Tenant) query.getSingleResult();
+		} catch (NoResultException e) {
+			// ignore when no result
+		}
 
-		if (list.size() == 1) {
-
-			tenant = list.get(0);
+		if (tenant != null) {
 
 			// Verify if the user belongs to tenant
 			if (securityContext != null && securityContext.getUser() != null) {
@@ -90,7 +90,8 @@ public class TenantSelectorFilter implements ContainerRequestFilter {
 
 					// Because of the order of security events, the complex
 					// situations are dont handled.
-					throw new DemoiselleSecurityException(messages.errorUserNotBelongTenant(tenant.getName()), Status.FORBIDDEN.getStatusCode());
+					throw new DemoiselleSecurityException(messages.errorUserNotBelongTenant(tenant.getName()),
+							Status.FORBIDDEN.getStatusCode());
 
 				}
 			}
