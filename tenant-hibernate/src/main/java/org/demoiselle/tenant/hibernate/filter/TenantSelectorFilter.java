@@ -82,8 +82,15 @@ public class TenantSelectorFilter implements ContainerRequestFilter {
 			// Verify if the user belongs to tenant
 			if (securityContext != null && securityContext.getUser() != null) {
 				String userTenant = securityContext.getUser().getParams("Tenant");
+
+				// If the User inside of Token doesnt belong to a tenat URL
+				// throws a Exception
 				if (!userTenant.equals(tenant.getName())) {
+
+					// Because of the order of security events, the complex
+					// situations are dont handled.
 					throw new DemoiselleSecurityException(messages.errorUserNotBelongTenant(tenant.getName()));
+
 				}
 			}
 
