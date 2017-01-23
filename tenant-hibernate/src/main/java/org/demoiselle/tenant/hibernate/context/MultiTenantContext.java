@@ -20,7 +20,7 @@ import org.demoiselle.tenant.hibernate.entity.Tenant;
 public class MultiTenantContext {
 
 	/**
-	 * Variable to hond tenant um Context.
+	 * Variable to hold tenant in Context.
 	 */
 	private Tenant tenant;
 
